@@ -1,23 +1,20 @@
 const express = require('express');
+const indexRouter = require('./routes');
 
 const app = express();
 
+//Setting up the ejs 
+app.set('view engine', "ejs");
+app.set('views', "./views");
 
+//setting up static file 
+app.use(express.static("public"));
 
-app.get("/",(req,res)=>{
-    res.send("hello world");
-});
-app.post("/post",(req,res)=>{
-    res.send("Post method revoked");
-});
+//activating js for the postman to use in body of the res
+app.use(express.json());
 
-app.delete("/delete",(req,res)=>{
-    res.send("delete method revoked");
-});
-
-app.put("/put",(req,res)=>{
-    res.send("Put method revoked");
-});
+// setting up routing
+app.use("/",indexRouter);
 
 
 
